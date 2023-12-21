@@ -1,0 +1,5 @@
+en:
+  js:
+    preferences:
+      title: "Abbreviations Settings" 
+      key: "Show Abbreviations on posts"

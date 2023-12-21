@@ -1,0 +1,9 @@
+plugins:
+  discourse_tura_list:
+    type: list
+    default: "tba==The Blue Alliance, a site for FIRST Robotics Competition event data"
+    client: true
+  discourse_tura_enabled:
+    type: boolean
+    default: true
+    client: true

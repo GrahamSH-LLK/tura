@@ -1,0 +1,4 @@
+en:
+    site_settings:
+      discourse_tura_enabled: "enable abbreviations plugin"
+      discourse_tura_list: "list of abbreviations, in the format 'abbreviation==full name'"
