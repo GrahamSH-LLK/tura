@@ -1,8 +1,8 @@
 # name: tura
-# about: 
+# about: abbreviations for Discourse posts
 # version: 0.0.1
 # authors: GrahamSH
-# url: https://github.com/grahamsh-llk/rules-citer
+# url: https://github.com/grahamsh-llk/tura
 
 enabled_site_setting :discourse_tura_enabled
 register_asset "stylesheets/tooltips.scss"

@@ -16,12 +16,8 @@ export function setup(helper) {
     }
   });
 
-  helper.allowList(["a"]);
-  helper.allowList({
-    custom(tag, name, value) {
-      return true;
-    },
-  });
+  helper.allowList(["span.abbreviation", "span.abbreviation span.tooltiptext"]);
+
 
   helper.registerPlugin((md) => {
     console.log("md", md);
@@ -52,5 +48,4 @@ export function setup(helper) {
       });
     });
   });
-  //helper.registerPlugin(tooltip);
 }
