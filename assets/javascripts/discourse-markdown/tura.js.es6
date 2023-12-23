@@ -4,7 +4,7 @@ export function setup(helper) {
   }
   let words = {};
   helper.registerOptions((opts, siteSettings) => {
-    opts.features["discourse_tura_enabled"] =
+    opts.features["tura"] =
       !!siteSettings.discourse_tura_enabled;
     for (let line of siteSettings.discourse_tura_list.split("|")) {
       let split = line.split("==");
