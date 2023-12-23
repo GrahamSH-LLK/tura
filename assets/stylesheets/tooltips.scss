@@ -1,6 +1,6 @@
 .abbreviation-enabled {
   z-index: z("tooltip");
-  border-bottom: 1px dotted #000;
+  border-bottom: 1px dotted var(--primary);
 
   .tooltiptext {
     overflow: hidden;
@@ -23,7 +23,7 @@
 }
 #abbreviation-tooltip[data-show] {
   background: var(--primary-low);
-  color: #000;
+  color: var(--primary);
   padding: 3px;
   display: block;
   border-radius: 5px;
