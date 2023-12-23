@@ -2,7 +2,6 @@ import { createPopper } from "@popperjs/core";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { iconHTML } from "discourse-common/lib/icon-library";
 let inlineabbreviationPopper;
-
 function buildTooltip() {
   let html = `
     <div id="abbreviation-tooltip" role="tooltip">
@@ -23,12 +22,15 @@ function applyInlineabbreviations(elem) {
   abbreviationRefs.forEach((abbreviationRef) => {
     console.log("hi");
     abbreviationRef.addEventListener("mouseover", abbreviationEventHandler);
-    abbreviationRef.addEventListener("mouseout", () =>
-      inlineabbreviationPopper?.destroy()
-    );
-    abbreviationRef.classList.add("abbreviation-enabled")
-  });
+    abbreviationRef.addEventListener("mouseout", () => {
+      inlineabbreviationPopper?.destroy();
+              document
+                .getElementById("abbreviation-tooltip")
+                ?.removeAttribute("data-show");
 
+    });
+    abbreviationRef.classList.add("abbreviation-enabled");
+  });
 }
 
 function abbreviationEventHandler(event) {
@@ -39,8 +41,6 @@ function abbreviationEventHandler(event) {
   // reset state by hidding tooltip, it handles "click outside"
   // allowing to hide the tooltip when you click anywhere else
   tooltip?.removeAttribute("data-show");
-
- 
 
   event.preventDefault();
   event.stopPropagation();
@@ -104,7 +104,7 @@ export default {
 
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
-    
+
     document.documentElement.append(buildTooltip());
 
     withPluginApi("0.1", (api) => addSetting(api, siteSettings));
@@ -113,8 +113,7 @@ export default {
       let enabled;
 
       if (currentUser) {
-        enabled =
-          currentUser.get("custom_fields.see_abbreviations") ?? true;
+        enabled = currentUser.get("custom_fields.see_abbreviations") ?? true;
       } else {
         enabled = true;
       }

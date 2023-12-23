@@ -21,6 +21,9 @@
     display: none;
   }
 }
+#abbreviation-tooltip:not([data-show]) {
+  display: none;
+}
 #abbreviation-tooltip[data-show] {
   background: var(--primary-low);
   color: var(--primary);
