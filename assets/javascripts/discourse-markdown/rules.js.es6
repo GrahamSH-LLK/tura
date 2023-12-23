@@ -4,10 +4,8 @@ export function setup(helper) {
   }
   let words = {};
   helper.registerOptions((opts, siteSettings) => {
-    
     opts.features["discourse_tura_enabled"] =
       !!siteSettings.discourse_tura_enabled;
-    
     for (let line of siteSettings.discourse_tura_list.split("|")) {
       let split = line.split("==");
       if (line.length) {
@@ -16,14 +14,17 @@ export function setup(helper) {
     }
   });
 
-  helper.allowList(["span.abbreviation", "span.abbreviation span.tooltiptext"]);
-
+  helper.allowList(["span.abbreviation", "template.tooltiptext"]);
 
   helper.registerPlugin((md) => {
     console.log("md", md);
 
-    const ruleRegex = new RegExp(Object.keys(words).join("|"), "gi");
-    // add rule to detect matches and then replace them with the appropriate html
+    // const ruleRegex = new RegExp(Object.keys(words).join("|"), "gi");
+    // regex that makes sure that the abbreviation is not in a word
+    const ruleRegex = new RegExp(
+      `\\b(${Object.keys(words).join("|")})\\b`,
+      "gi"
+    );
 
     md.core.ruler.push("replace", (state) => {
       state.tokens.forEach((token) => {
@@ -38,9 +39,9 @@ export function setup(helper) {
               child.type = "html_inline";
               child.content = child.content.replace(ruleRegex, (match) => {
                 console.log("match", match);
-                return `<span id="abbreviation" class="abbreviation" >${match}<span class="tooltiptext">${
+                return `<span id="abbreviation" class="abbreviation" >${match}<template class="tooltiptext">${
                   words[match.toLowerCase()]
-                }</span></span>`;
+                }</template></span>`;
               });
             }
           }

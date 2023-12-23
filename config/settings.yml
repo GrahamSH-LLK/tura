@@ -1,7 +1,7 @@
 plugins:
   discourse_tura_list:
     type: list
-    default: "tba==The Blue Alliance, a site for FIRST Robotics Competition event data"
+    default: "tba==The Blue Alliance, a site for FIRST Robotics Competition event data|frc==FIRST Robotics Competition|ftc==FIRST Tech Challenge|vrc==VEX Robotics Competition|wcp==West Coast Products|am==AndyMark|pdp==CTRE's Power Distribution Panel|pdh==REV's Power Distribution Hub|vrm==Voltage Regulator Module|rpm==Revolutions Per Minute|ttb==The Thrifty Bot|ppr==Pulses Per Revolution|epa==Expected Points Added"
     client: true
   discourse_tura_enabled:
     type: boolean
