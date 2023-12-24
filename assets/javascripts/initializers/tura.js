@@ -16,18 +16,15 @@ function buildTooltip() {
   return template.content.firstChild;
 }
 function applyInlineabbreviations(elem) {
-  console.log(elem);
   const abbreviationRefs = elem.querySelectorAll(".abbreviation");
 
   abbreviationRefs.forEach((abbreviationRef) => {
-    console.log("hi");
     abbreviationRef.addEventListener("mouseover", abbreviationEventHandler);
     abbreviationRef.addEventListener("mouseout", () => {
       inlineabbreviationPopper?.destroy();
-              document
-                .getElementById("abbreviation-tooltip")
-                ?.removeAttribute("data-show");
-
+      document
+        .getElementById("abbreviation-tooltip")
+        ?.removeAttribute("data-show");
     });
     abbreviationRef.classList.add("abbreviation-enabled");
   });
@@ -50,10 +47,12 @@ function abbreviationEventHandler(event) {
   const abbreviationContent = tooltip.querySelector(
     ".abbreviation-tooltip-content"
   );
-  console.log(abbreviationContent);
   let newContent = event.target.querySelector(".tooltiptext");
-
-  abbreviationContent.innerHTML = newContent.innerHTML;
+  if (!newContent.getAttribute("data-text")) {
+    abbreviationContent.innerHTML = newContent.innerHTML;
+  } else {
+    abbreviationContent.innerHTML = newContent.getAttribute("data-text");
+  }
 
   // display tooltip
   tooltip.dataset.show = "";

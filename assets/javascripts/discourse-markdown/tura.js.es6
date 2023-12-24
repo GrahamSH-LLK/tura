@@ -3,7 +3,7 @@ export function setup(helper) {
     return;
   }
   let words = {};
-  
+
   helper.registerOptions((opts, siteSettings) => {
     opts.features["tura"] = !!siteSettings.discourse_tura_enabled;
     for (let line of siteSettings.discourse_tura_list.split("|")) {
@@ -12,14 +12,11 @@ export function setup(helper) {
         words[split[0].toUpperCase()] = split[1];
       }
     }
-
   });
 
-  helper.allowList(["span.abbreviation", "template.tooltiptext"]);
+  helper.allowList(["span.abbreviation", "template.tooltiptext", "template[data-text]"]);
 
   helper.registerPlugin((md) => {
-    console.log("md", md);
-
     // const ruleRegex = new RegExp(Object.keys(words).join("|"), "gi");
     // regex that makes sure that the abbreviation is not in a word
     const ruleRegex = new RegExp(
@@ -43,10 +40,9 @@ export function setup(helper) {
             if (child.content.match(ruleRegex)) {
               child.type = "html_inline";
               child.content = child.content.replace(ruleRegex, (match) => {
-                console.log("match", child.content, match);
-                return `<span id="abbreviation" class="abbreviation" >${match}<template class="tooltiptext">${
+                return `<span id="abbreviation" class="abbreviation" >${match}<template class="tooltiptext" data-text="${
                   words[match.toUpperCase()]
-                }</template></span>`;
+                }"></template></span>`;
               });
             }
           }
